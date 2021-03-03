@@ -51,13 +51,18 @@ let hoursWorkedOnDate = function(employee, soughtDate){
     return (outEvent.hour - inEvent.hour) / 100
 }
 
-let wagesEarnedOnDate = function(employee, dateSought){
-    let rawWage = hoursWorkedOnDate(employee, dateSought)
-        * employee.payPerHour
-    return parseFloat(rawWage.toString())
+let wagesEarnedOnDate = function(employee, soughtDate){
+    return hoursWorkedOnDate(employee, soughtDate) * employee.payPerHour
 }
 
 let allWagesFor = function(employee){
+    //identify eligible dates
+    //substract set of dates to obtain hours worked
+    //total all those hours (reduce)
+    //multiply the hours by employee.payPerHour
+
+
+
     let eligibleDates = employee.timeInEvents.map(function(e){
         return e.date
     })
@@ -65,8 +70,16 @@ let allWagesFor = function(employee){
     let payable = eligibleDates.reduce(function(memo, d){
         return memo + wagesEarnedOnDate(employee, d)
     }, 0)
-
     return payable
+    
+    //this is REDUCE written in a MAP way
+
+    // let totalWages = 0
+    // let payable = eligibleDates.map(element => {
+    //     totalWages = totalWages + wagesEarnedOnDate(employee, element)
+    // });
+
+    // return totalWages
 }
 
 let findEmployeeByFirstName = function(srcArray, firstName) {
